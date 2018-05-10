@@ -1,13 +1,12 @@
 <template>
   <div>
-    <router-link to="/a">Go to Foo</router-link>
-    <router-link to="/b">Go to Bar</router-link>
+    <router-link to="/index">Login</router-link>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'HelloWorld',
+  name: 'Login',
   data () {
     return {
       msg: 'Welcome to Your Vue.js App'

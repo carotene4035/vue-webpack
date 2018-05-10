@@ -1,11 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
-import Compa from '@/components/compa'
+import Login from '@/components/login'
 
 /** lazy loadするコンポーネント */
-const Compb = function () {
-  import('@/components/compb')
+const Index = function () {
+  return import('@/components/index')
 }
 
 Vue.use(Router)
@@ -13,19 +12,14 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
-      path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld
+      path: '/login',
+      name: 'Login',
+      component: Login
     },
     {
-      path: '/a',
-      name: 'compa',
-      component: Compa
-    },
-    {
-      path: '/b',
-      name: 'compb',
-      component: Compb
+      path: '/index',
+      name: 'Index',
+      component: Index
     }
   ]
 })
