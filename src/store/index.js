@@ -1,5 +1,14 @@
-// import Vuex from 'vuex'
+import Vuex from 'vuex'
 
-const store = 'a'
+const store = new Vuex.Store({
+  state: {
+    count: 0
+  },
+  mutations: {
+    increment (state) {
+      state.count++
+    }
+  }
+})
 
 export default store
