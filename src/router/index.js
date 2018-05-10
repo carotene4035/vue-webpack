@@ -2,7 +2,11 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
 import Compa from '@/components/compa'
-import Compb from '@/components/compb'
+
+/** lazy loadするコンポーネント */
+const Compb = function () {
+  import('@/components/compb')
+}
 
 Vue.use(Router)
 
