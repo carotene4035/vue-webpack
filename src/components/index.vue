@@ -1,7 +1,7 @@
 <template>
   <div>
-    ログインしました {{ number }}
-    <button v-on:click='onClickButton()'>aaaa</button>
+    ログインしました {{ number }} {{ count }}
+    <button v-on:click='onClickButton()'></button>
   </div>
 </template>
 
@@ -16,6 +16,12 @@ export default {
     /** dataはobjectしか返さない */
     return {
       number: '1'
+    }
+  },
+  computed: {
+    count () {
+      // componentがstoreのことを知りすぎている感じがする
+      return this.$store.state.count
     }
   },
   methods: {
