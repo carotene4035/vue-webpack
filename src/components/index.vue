@@ -10,6 +10,7 @@
 // テストをするときにstoreのモックが必要になってしまう
 // なのでmain.jsで読み込む
 // import store from '../store/index'
+import { mapState } from 'vuex'
 
 export default {
   data: function () {
@@ -18,12 +19,19 @@ export default {
       number: '1'
     }
   },
-  computed: {
-    count () {
-      // componentがstoreのことを知りすぎている感じがする
-      return this.$store.state.count
-    }
-  },
+  // storeが持っているデータのプロパティ名(count)と、
+  // コンポーネントが持っているデータのプロパティ名がいっしょの場合、
+  // 以下のように書くとthis.count to store.state.countをマッピングすることができる
+  computed: mapState([
+    // map this.count to store.state.count
+    'count'
+  ]),
+
+  // 以下をいちいち書くのは面倒なので、mapStateを使用する
+  //   count () {
+  //     // componentがstoreのことを知りすぎている感じがする
+  //     return this.$store.state.count
+  //   }
   methods: {
     onClickButton: function () {
       // store.commint('mutation名')でstoreを操作する
