@@ -30,11 +30,13 @@ export default {
   // コンポーネントが持っているデータのプロパティ名がいっしょの場合、
   // 以下のように書くとthis.count to store.state.countをマッピングすることができる
   computed: {
+    /** storeの状態を参照 */
     ...mapState([
       // map this.count to store.state.count
       'count',
       'lists'
     ]),
+    /** storeの状態をfilterをかけて参照 */
     ...mapGetters([
       'doneTodos'
     ])
