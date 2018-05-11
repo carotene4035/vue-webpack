@@ -6,7 +6,10 @@
 </template>
 
 <script>
-import store from '../store/index'
+// 全てのコンポーネントをここで書くのは大変だし、
+// テストをするときにstoreのモックが必要になってしまう
+// なのでmain.jsで読み込む
+// import store from '../store/index'
 
 export default {
   data: function () {
@@ -18,7 +21,7 @@ export default {
   methods: {
     onClickButton: function () {
       // store.commint('mutation名')でstoreを操作する
-      store.commit('increment')
+      this.$store.commit('increment')
     }
   }
 }
