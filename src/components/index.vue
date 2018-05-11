@@ -1,6 +1,13 @@
 <template>
   <div>
     ログインしました {{ number }} {{ count }}
+    <ul>
+      <li v-for='list in lists' :key=list.id>{{list.text}}</li>
+    </ul>
+
+    <ul>
+      <li v-for='list in doneTodos' :key=list.id>{{list.text}}</li>
+    </ul>
     <button v-on:click='onClickButton()'></button>
   </div>
 </template>
@@ -10,7 +17,7 @@
 // テストをするときにstoreのモックが必要になってしまう
 // なのでmain.jsで読み込む
 // import store from '../store/index'
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 
 export default {
   data: function () {
@@ -22,11 +29,16 @@ export default {
   // storeが持っているデータのプロパティ名(count)と、
   // コンポーネントが持っているデータのプロパティ名がいっしょの場合、
   // 以下のように書くとthis.count to store.state.countをマッピングすることができる
-  computed: mapState([
-    // map this.count to store.state.count
-    'count'
-  ]),
-
+  computed: {
+    ...mapState([
+      // map this.count to store.state.count
+      'count',
+      'lists'
+    ]),
+    ...mapGetters([
+      'doneTodos'
+    ])
+  },
   // 以下をいちいち書くのは面倒なので、mapStateを使用する
   //   count () {
   //     // componentがstoreのことを知りすぎている感じがする
