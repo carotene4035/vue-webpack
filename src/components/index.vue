@@ -1,25 +1,27 @@
 <template>
   <div>
-    ログインしました {{ number }} {{ count }}
-    <ul>
-      <li v-for='list in lists' :key=list.id>{{list.text}}</li>
-    </ul>
-
-    <ul>
-      <li v-for='list in doneTodos' :key=list.id>{{list.text}}</li>
-    </ul>
-    <button v-on:click='onClickButton()'></button>
+    <todoform></todoform>
+    <todolists></todolists>
   </div>
 </template>
 
 <script>
+/*
+ * TOPページのコンテナコンポーネント
+ */
 // 全てのコンポーネントをここで書くのは大変だし、
 // テストをするときにstoreのモックが必要になってしまう
 // なのでmain.jsで読み込む
 // import store from '../store/index'
 import { mapState, mapGetters } from 'vuex'
+import todolists from './todolists.vue'
+import todoform from './todoform.vue'
 
 export default {
+  components: {
+    todolists,
+    todoform
+  },
   data: function () {
     /** dataはobjectしか返さない */
     return {

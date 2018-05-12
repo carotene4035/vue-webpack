@@ -14,7 +14,8 @@ const store = new Vuex.Store({
   /** 何らかのフィルタリングをかけたりしたいときはgetterに記述する */
   /** (そのまま取得したいときはmapState?) */
   getters: {
-    doneTodos: state => {
+    doneTodos: (state) => (id) => {
+      console.log(id)
       return state.lists.filter(todo => todo.done)
     }
   },
