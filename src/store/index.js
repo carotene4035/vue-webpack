@@ -7,6 +7,9 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
   state: {
     todos: [
+      // これ、collectionクラスにまとめたほうがよいのではないだろうか。。。
+      // 多分、collectionにもドメインロジックが入ってくる気がする
+      // で、コレクションの中にmodelをもつようにしたらどうだろう？
       { id: 1, text: 'hello', done: true },
       { id: 2, text: 'hello world', done: false }
     ]
@@ -20,14 +23,20 @@ const store = new Vuex.Store({
   },
   mutations: {
     add (state, options) {
-      // stateがimmutableじゃないんだよなぁ
       state.todos.push({id: null, text: options, done: false})
+    },
+    remove (state, index) {
+      console.log(index)
+      state.todos.splice(index, 1)
     }
   },
   actions: {
     /** 非同期処理の場合、ここでapi通信を行う */
     add (context, options) {
       context.commit('add', options)
+    },
+    remove (context, id) {
+      context.commit('remove', id)
     }
   }
 })
