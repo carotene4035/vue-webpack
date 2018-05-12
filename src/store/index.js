@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
+/** TODO: mutation, getter, stateはバラバラにしたい */
 const store = new Vuex.Store({
   state: {
     todos: [
@@ -18,13 +19,14 @@ const store = new Vuex.Store({
     }
   },
   mutations: {
-    add (state) {
-
+    add (state, options) {
+      state.todos.push(options)
     }
   },
   actions: {
-    add (context) {
-      context.commit('add')
+    /** 非同期処理の場合、ここでapi通信を行う */
+    add (context, options) {
+      context.commit('add', options)
     }
   }
 })
