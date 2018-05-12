@@ -4,6 +4,7 @@
 
 <script>
 import todo from './todo.vue'
+
 export default {
   components: { todo }
 }

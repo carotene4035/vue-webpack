@@ -5,8 +5,7 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
-    count: 0,
-    lists: [
+    todos: [
       { id: 1, text: 'hello', done: true },
       { id: 2, text: 'hello world', done: false }
     ]
@@ -15,13 +14,17 @@ const store = new Vuex.Store({
   /** (そのまま取得したいときはmapState?) */
   getters: {
     doneTodos: (state) => (id) => {
-      console.log(id)
       return state.lists.filter(todo => todo.done)
     }
   },
   mutations: {
-    increment (state) {
-      state.count++
+    add (state) {
+
+    }
+  },
+  actions: {
+    add (context) {
+      context.commit('add')
     }
   }
 })
