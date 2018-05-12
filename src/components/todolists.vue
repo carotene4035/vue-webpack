@@ -9,6 +9,9 @@ import todo from './todo.vue'
 
 export default {
   components: { todo },
+  created: function () {
+    this.$store.dispatch('getAll')
+  },
   computed: {
     todos () {
       return this.$store.state.todos
