@@ -20,7 +20,8 @@ const store = new Vuex.Store({
   },
   mutations: {
     add (state, options) {
-      state.todos.push(options)
+      // stateがimmutableじゃないんだよなぁ
+      state.todos.push({id: null, text: options, done: false})
     }
   },
   actions: {

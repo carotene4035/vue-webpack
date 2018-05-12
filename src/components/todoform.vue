@@ -12,6 +12,7 @@ export default {
       let text = e.target.value
       // dispatchの引数はtype, payload
       this.$store.dispatch('add', text)
+      e.target.value = ''
     }
   }
 }
