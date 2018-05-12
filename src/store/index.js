@@ -22,7 +22,14 @@ const store = new Vuex.Store({
     }
   },
   mutations: {
+    /** ここは、todoコレクションクラスへの操作を命令するだけにしたい */
     add (state, options) {
+      /* 
+       * ここで、todolistの操作の仕方をstoreが知ってしまっている。
+       * もし今後、vueからreactに移植する事があった場合、
+       * storeは捨てることになる。
+       * そうすると「todolistの操作の仕方」が再利用できなくなるのでよくない。
+       */
       state.todos.push({id: null, text: options, done: false})
     },
     remove (state, index) {
