@@ -1,26 +1,18 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import axios from 'axios'
+import { TodoAPI } from '../api/todo'
 
 /** 基本、一つのstoreは１つのドメインモデルを持っているだけにしたいなぁ */
 import Todolist from '../models/todolist'
-
-/** axiosの設定（TODO 別のファイルにおく) */
-const client = axios.create({
-  baseURL: 'http://localhost:3000', // バックエンドB のURL:port を指定する
-  headers: {
-    'ContentType': 'application/json',
-    'X-Requested-With': 'XMLHttpRequest'
-  },
-  responseType: 'json'
-})
 
 Vue.use(Vuex)
 
 /** TODO: mutation, getter, stateはバラバラにしたい */
 const store = new Vuex.Store({
   state: {
-    todos: Todolist
+    /** うーむ、これだと配列にならんな。。。 */
+    // stateに直接ドメインモデルをもたせるのは現実的ではないのかな。。。 */
+    todos: new Todolist().getAllTodos()
   },
   /** 何らかのフィルタリングをかけたりしたいときはgetterに記述する */
   /** (そのまま取得したいときはmapState?) */
@@ -45,19 +37,12 @@ const store = new Vuex.Store({
     }
   },
   actions: {
-    /** 非同期処理の場合、ここでapi通信を行う */
-    /** すべてのtodoを取得 */
     getAll (context) {
-      /** この処理はうまく別のファイルに移すようにする */
-      /** 今すごい汚いから */
-      client.get('/todos')
-        .then(response => {
-          const todos = response.data
-          todos.forEach(todo => {
-            /** データ毎にmodelを作成 */
-            context.commit('add', todo)
-          })
+      TodoAPI.getAllTodo(function (todos) {
+        todos.forEach(todo => {
+          context.commit('add', todo)
         })
+      })
     },
     add (context, todo) {
       context.commit('add', todo)

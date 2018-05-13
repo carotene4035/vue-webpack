@@ -7,6 +7,10 @@ export default class Todolist {
     this.todos = []
   }
 
+  getAllTodos () {
+    return this.todos
+  }
+
   /** todoをtodolistsに追加 */
   addTodo (todo) {
     this.todos.push(new Todo(todo))
