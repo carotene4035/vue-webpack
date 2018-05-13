@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 import { TodoAPI } from '../api/todo'
 
 /** 基本、一つのstoreは１つのドメインモデルを持っているだけにしたいなぁ */
-import Todolist from '../models/todolist'
+import Todo from '../models/todo'
 
 Vue.use(Vuex)
 
@@ -12,7 +12,7 @@ const store = new Vuex.Store({
   state: {
     /** うーむ、これだと配列にならんな。。。 */
     // stateに直接ドメインモデルをもたせるのは現実的ではないのかな。。。 */
-    todos: new Todolist().getAllTodos()
+    todos: []
   },
   /** 何らかのフィルタリングをかけたりしたいときはgetterに記述する */
   /** (そのまま取得したいときはmapState?) */
@@ -30,10 +30,10 @@ const store = new Vuex.Store({
      * そうすれば、vue側のドメイン知識が少なくなる
      */
     add (state, todo) {
-      state.todos.addTodo(todo)
+      state.todos.push(new Todo(todo))
     },
     remove (state, index) {
-      state.todos.removeTodd(index)
+      state.todos.slice(index, 1)
     }
   },
   actions: {
