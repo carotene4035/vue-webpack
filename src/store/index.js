@@ -2,6 +2,8 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
 
+import Todolist from '../models/todolist'
+
 /** axiosの設定（TODO 別のファイルにおく) */
 const client = axios.create({
   baseURL: 'http://localhost:3000', // バックエンドB のURL:port を指定する
@@ -17,13 +19,8 @@ Vue.use(Vuex)
 /** TODO: mutation, getter, stateはバラバラにしたい */
 const store = new Vuex.Store({
   state: {
-    todos: [
-      // これ、collectionクラスにまとめたほうがよいのではないだろうか。。。
-      // 多分、collectionにもドメインロジックが入ってくる気がする
-      // で、コレクションの中にmodelをもつようにしたらどうだろう？
-    ]
+    todos: Todolist
   },
-
   /** 何らかのフィルタリングをかけたりしたいときはgetterに記述する */
   /** (そのまま取得したいときはmapState?) */
   getters: {
@@ -35,18 +32,11 @@ const store = new Vuex.Store({
   },
   mutations: {
     /** ここは、todoコレクションクラスへの操作を命令するだけにしたい */
-    add (state, options) {
-      /*
-       * ここで、todolistの操作の仕方をstoreが知ってしまっている。
-       * もし今後、vueからreactに移植する事があった場合、
-       * storeは捨てることになる。
-       * そうすると「todolistの操作の仕方」が再利用できなくなるのでよくない。
-       */
-      state.todos.push(options)
+    add (state, todo) {
+      state.todos.addTodo(todo)
     },
     remove (state, index) {
-      console.log(index)
-      state.todos.splice(index, 1)
+      state.todos.removeTodd(index)
     }
   },
   actions: {
@@ -54,19 +44,21 @@ const store = new Vuex.Store({
     /** すべてのtodoを取得 */
     getAll (context) {
       /** この処理はうまく別のファイルに移すようにする */
+      /** 今すごい汚いから */
       client.get('/todos')
         .then(response => {
-          const datas = response.data
-          datas.forEach(data => {
-            context.commit('add', data)
+          const todos = response.data
+          todos.forEach(todo => {
+            /** データ毎にmodelを作成 */
+            context.commit('add', todo)
           })
         })
     },
-    add (context, options) {
-      context.commit('add', options)
+    add (context, todo) {
+      context.commit('add', todo)
     },
-    remove (context, id) {
-      context.commit('remove', id)
+    remove (context, index) {
+      context.commit('remove', index)
     }
   }
 })
