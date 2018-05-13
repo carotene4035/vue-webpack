@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
 
+/** 基本、一つのstoreは１つのドメインモデルを持っているだけにしたいなぁ */
 import Todolist from '../models/todolist'
 
 /** axiosの設定（TODO 別のファイルにおく) */
@@ -24,6 +25,7 @@ const store = new Vuex.Store({
   /** 何らかのフィルタリングをかけたりしたいときはgetterに記述する */
   /** (そのまま取得したいときはmapState?) */
   getters: {
+    /** これもドメインモデルにアクセスするだけにしたい */
     doneTodos: (state) => (id) => {
       return state.lists.filter(todo => todo.done)
     },
@@ -31,7 +33,10 @@ const store = new Vuex.Store({
     }
   },
   mutations: {
-    /** ここは、todoコレクションクラスへの操作を命令するだけにしたい */
+    /*
+     * ここは、todoコレクションクラスへの操作を命令するだけにしたい。
+     * そうすれば、vue側のドメイン知識が少なくなる
+     */
     add (state, todo) {
       state.todos.addTodo(todo)
     },
