@@ -35,7 +35,6 @@ const store = new Vuex.Store({
       })
     },
     add (context, todo) {
-      console.log(todo)
       context.commit('add', todo)
     },
     remove (context, index) {

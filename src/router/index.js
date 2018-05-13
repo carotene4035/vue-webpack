@@ -3,8 +3,8 @@ import Router from 'vue-router'
 import Login from '@/components/login'
 
 /** lazy loadするコンポーネント */
-const Index = function () {
-  return import('@/components/index')
+const Todos = function () {
+  return import('@/pages/todos')
 }
 
 Vue.use(Router)
@@ -17,9 +17,9 @@ export default new Router({
       component: Login
     },
     {
-      path: '/',
-      name: 'Index',
-      component: Index
+      path: '/todos',
+      name: 'Todos',
+      component: Todos
     }
   ]
 })
