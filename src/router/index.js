@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Login from '@/components/login'
+import Login from '@/pages/login'
 
-/** lazy loadするコンポーネント */
+/** lazy loadするコンポーネント(ほぼ全て) */
 const Todos = function () {
   return import('@/pages/todos')
 }
@@ -12,7 +12,7 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
-      path: '/login',
+      path: '/',
       name: 'Login',
       component: Login
     },
